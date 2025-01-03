@@ -13,7 +13,7 @@ class Solution {
             else if(numbers[left] + numbers[right] == target){
                 result[0] = left + 1;
                 result[1] = right + 1;
-                break;
+                return result;
             }
         }
         return result;
