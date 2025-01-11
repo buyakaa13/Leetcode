@@ -10,8 +10,6 @@ class Solution {
             str1Freq[s1.charAt(i) - 'a']++;
             str2Freq[s2.charAt(i) - 'a']++;
         }
-        if(str1Freq == str2Freq)
-            return true;
         for(int i=str1Len; i<str2Len; i++){
             if(Arrays.equals(str1Freq, str2Freq))
                 return true;
