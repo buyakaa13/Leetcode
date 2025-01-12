@@ -27,6 +27,6 @@ class Solution {
         if (!stackLocked.isEmpty())
             return false;
 
-        return stackUnlocked.size() % 2 == 0;
+        return true;
     }
 }
