@@ -1,23 +1,27 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        if(s.length() == 0 || p.length() == 0)
+        if (p.length() > s.length())
             return new ArrayList<>();
-        int len = p.length();
-        int[] subset = getFrequence(p);
-        List<Integer> list = new ArrayList<>();
-        for(int i=0; i<=s.length()-len; i++){
-            String sub = s.substring(i, i+len);
-            int[] set = getFrequence(sub);
-            if(Arrays.equals(subset, set))
-                list.add(i);
-        }
-        return list;
-    }
+        Map<Character, Integer> pCount = new HashMap<>();
+        Map<Character, Integer> sCount = new HashMap<>();
 
-     public int[] getFrequence(String str){
-        int[] freq = new int[26];
-        for(Character ch: str.toCharArray())
-            freq[ch - 'a']++;
-        return freq;
+        for (int i = 0; i < p.length(); i++) {
+            pCount.put(p.charAt(i), pCount.getOrDefault(p.charAt(i), 0) + 1);
+            sCount.put(s.charAt(i), sCount.getOrDefault(s.charAt(i), 0) + 1);
+        }
+
+        List<Integer> res = sCount.equals(pCount) ? new ArrayList<>(Arrays.asList(0)) : new ArrayList<>();
+        int l = 0;
+        for (int r = p.length(); r < s.length(); r++) {
+            sCount.put(s.charAt(r), sCount.getOrDefault(s.charAt(r), 0) + 1);
+            sCount.put(s.charAt(l), sCount.getOrDefault(s.charAt(l), 0) - 1);
+
+            if (sCount.get(s.charAt(l)) == 0)
+                sCount.remove(s.charAt(l));
+            l++;
+            if (sCount.equals(pCount))
+                res.add(l);
+        }
+        return res;
     }
 }
