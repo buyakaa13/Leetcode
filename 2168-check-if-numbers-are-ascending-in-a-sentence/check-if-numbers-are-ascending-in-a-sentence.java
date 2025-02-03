@@ -2,13 +2,14 @@ class Solution {
     public boolean areNumbersAscending(String s) {
         if(s.isEmpty())
             return false;
-        String[] array = s.split(" ");
         int element = Integer.MIN_VALUE;
-        for(String a: array){
-            if(isNumeric(a) && Integer.parseInt(a) > element)
-                element = Integer.parseInt(a);
-            else if(isNumeric(a) && Integer.parseInt(a) <= element)
-                return false;
+        for(String str: s.split(" ")){
+            try {
+                int number = Integer.parseInt(str);
+                if(number <= element)
+                    return false;
+                element = number;
+            } catch(NumberFormatException e){}
         }
         return true;
     }
