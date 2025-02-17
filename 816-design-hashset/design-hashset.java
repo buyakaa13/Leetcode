@@ -2,7 +2,7 @@ class MyHashSet {
     boolean [] list;
 
     public MyHashSet() {
-        list = new boolean[1000000+6];
+        list = new boolean[1000000+1];
     } 
     
     public void add(int key) {
