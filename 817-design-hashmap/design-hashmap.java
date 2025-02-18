@@ -3,19 +3,18 @@ class MyHashMap {
     
     public MyHashMap() {
         hashMap = new int[1000000+1];
-        Arrays.fill(hashMap, -1);
     }
     
     public void put(int key, int value) {
-        hashMap[key] = value;
+        hashMap[key] = value+1;
     }
     
     public int get(int key) {
-        return hashMap[key];
+        return hashMap[key]-1;
     }
     
     public void remove(int key) {
-        hashMap[key] = -1;
+        hashMap[key] = 0;
     }
 }
 
