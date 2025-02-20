@@ -5,7 +5,7 @@ class Solution {
         if(!max.startsWith(min))
             return "";
         while(!min.isEmpty()){
-            if(max.contains(min)){
+            if(max.startsWith(min)){
                 String temp = min;
                 min = max.replace(min, "");
                 max = temp;
