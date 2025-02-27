@@ -1,20 +1,15 @@
 class Solution {
     public boolean isHappy(int n) {
-        Set<Integer> set = new HashSet<>();
-        while(n != 1 && !set.contains(n)){
-            set.add(n);
-            n = sumOfSquares(n);
+        if(n==1 || n==7) return true;
+        else if(n<10) return false;
+        else{
+            int sum=0;
+            while(n>0){
+                int temp = n%10;
+                sum += temp*temp;
+                n /= 10;
+            }
+            return isHappy(sum);
         }
-        return n == 1;
-    }
-
-    private int sumOfSquares(int num){
-        int sum = 0;
-        while(num > 0){
-            int digit = num%10;
-            sum += digit*digit;
-            num /= 10;
-        }
-        return sum;
     }
 }
