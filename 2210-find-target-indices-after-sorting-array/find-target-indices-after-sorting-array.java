@@ -8,8 +8,8 @@ class Solution {
                 tCount++;
         }
         List<Integer> ans = new ArrayList<>();
-            for(int t=0;t<tCount;t++)
-                ans.add(count++);
+        for(int t=0;t<tCount;t++)
+            ans.add(count++);
         return ans;
     }
 }
