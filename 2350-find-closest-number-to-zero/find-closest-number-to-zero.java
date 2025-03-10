@@ -1,15 +1,11 @@
 class Solution {
     public int findClosestNumber(int[] nums) {
-        int closest = Integer.MAX_VALUE;
-        int mainDiff = Integer.MAX_VALUE;
+        int closest = nums[0];
         for(int i=0; i<nums.length; i++){
             int diff = Math.abs(0 - nums[i]);
-            if(diff < mainDiff){
-                mainDiff = diff;
+            if(Math.abs(nums[i]) < Math.abs(closest) || (Math.abs(nums[i]) == Math.abs(closest) && nums[i] > closest)){
                 closest = nums[i];
             }
-            else if(diff == mainDiff)
-                closest = Math.max(nums[i], closest);
         }
         return closest;
     }
