@@ -1,8 +1,8 @@
 class Solution {
     public int maximumCandies(int[] candies, long k) {
-        long max = 0;
-        for(int i=0; i<candies.length; i++)
-            max = Math.max(candies[i], max);
+        long max = 10000007;
+        // for(int i=0; i<candies.length; i++)
+        //     max = Math.max(candies[i], max);
         long low = 1, sumCount = 0;
         while(low <= max){
             long mid = low + (max-low)/2;
