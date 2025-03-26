@@ -6,7 +6,8 @@ class Solution {
                 count++;
             else
                 count = 0;
-            maxCount = Math.max(count, maxCount);
+            if(count > maxCount) maxCount = count;
+            // maxCount = Math.max(count, maxCount);
         }
         return maxCount;
     }
