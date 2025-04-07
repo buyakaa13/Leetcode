@@ -8,8 +8,11 @@ class Solution {
         boolean[] dp = new boolean[targetSum+1];
         dp[0] = true;
         for(int num: nums){
-            for(int currentSum = targetSum; currentSum >= num; currentSum--)
+            for(int currentSum = targetSum; currentSum >= num; currentSum--){
                 dp[currentSum] = dp[currentSum] | dp[currentSum - num];
+                if(dp[targetSum])
+                    return true;
+            }
         }
         return dp[targetSum];
     }
