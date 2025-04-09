@@ -2,7 +2,6 @@ class Solution {
     public int minOperations(int[] nums, int k) {
         if(nums.length == 1 && nums[0] == k)
             return 0;
-        Arrays.sort(nums);
         TreeSet<Integer> map = new TreeSet<>();
         int count = 0;
         for(int i=nums.length-1; i>=0; i--){
