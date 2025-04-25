@@ -15,8 +15,8 @@ class Solution {
                     int col = dir[1] + current[1];
                     System.out.println("row: " + row + " col: " + col + " step: " + steps);
                     if(row < 0 || row >= maze.length || col < 0 || col >= maze[0].length) continue;
-                    else if(maze[row][col] == '+') continue;
-                    else if(row == 0 || row == maze.length-1 || col == 0 || col == maze[0].length-1) return steps;
+                    if(maze[row][col] == '+') continue;
+                    if(row == 0 || row == maze.length-1 || col == 0 || col == maze[0].length-1) return steps;
                    
                     maze[row][col] = '+';
                     queue.offer(new int[]{row, col});
