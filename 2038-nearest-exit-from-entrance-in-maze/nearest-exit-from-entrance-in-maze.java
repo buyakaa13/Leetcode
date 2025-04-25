@@ -1,23 +1,35 @@
 class Solution {
     public int nearestExit(char[][] maze, int[] entrance) {
+        int rows = maze.length;
+        int cols = maze[0].length;
+        
         Queue<int[]> queue = new ArrayDeque<>();
         queue.offer(entrance);
         maze[entrance[0]][entrance[1]] = '+';
-        int[][] directions = {{0,1}, {1,0}, {-1,0}, {0,-1}};
+        
+        int[][] directions = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
         int steps = 0;
-        while(!queue.isEmpty()){
-            steps++;
+        
+        while (!queue.isEmpty()) {
             int size = queue.size();
-            for(int i=0; i<size; i++){
+            steps++;
+            
+            for (int i = 0; i < size; i++) {
                 int[] current = queue.poll();
-                for(int[] dir: directions){
-                    int row = dir[0] + current[0];
-                    int col = dir[1] + current[1];
-                    System.out.println("row: " + row + " col: " + col + " step: " + steps);
-                    if(row < 0 || row >= maze.length || col < 0 || col >= maze[0].length) continue;
-                    else if(maze[row][col] == '+') continue;
-                    else if(row == 0 || row == maze.length-1 || col == 0 || col == maze[0].length-1) return steps;
-                   
+                
+                for (int[] dir : directions) {
+                    int row = current[0] + dir[0];
+                    int col = current[1] + dir[1];
+                    
+                    if (row < 0 || row >= rows || col < 0 || col >= cols)
+                        continue;
+                    if (maze[row][col] == '+')
+                        continue;
+                    if (row == 0 || row == rows - 1 || col == 0 || col == cols - 1) {
+                        if (!(row == entrance[0] && col == entrance[1])) {
+                            return steps;
+                        }
+                    }
                     maze[row][col] = '+';
                     queue.offer(new int[]{row, col});
                 }
