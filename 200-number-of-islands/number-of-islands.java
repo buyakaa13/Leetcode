@@ -14,32 +14,11 @@ class Solution {
     }
 
     public void bfs(int row, int col, int rowCount, int colCount, char[][] grid){
-        Queue<int[]> queue = new LinkedList();
-        queue.offer(new int[]{row, col});
+        if(row < 0 || row >= rowCount || col < 0 || col >= colCount || grid[row][col] == '0') return;
         grid[row][col] = '0';
-
-        while(!queue.isEmpty()){
-            int[] current = queue.poll();
-            int r = current[0], c = current[1];
-            if(r+1 < rowCount && grid[r+1][c] == '1'){
-                queue.offer(new int[]{r+1, c});
-                grid[r+1][c] = '0';
-            }
-
-            if(c+1 < colCount && grid[r][c+1] == '1'){
-                queue.offer(new int[]{r, c+1});
-                grid[r][c+1] = '0';
-            }
-
-            if(r-1 >= 0 && grid[r-1][c] == '1'){
-                queue.offer(new int[]{r-1, c});
-                grid[r-1][c] = '0';
-            }
-
-            if(c-1 >= 0 && grid[r][c-1] == '1'){
-                queue.offer(new int[]{r, c-1});
-                grid[r][c-1] = '0';
-            }
-        }
+        bfs(row+1, col, rowCount, colCount, grid);
+        bfs(row-1, col, rowCount, colCount, grid);
+        bfs(row, col+1, rowCount, colCount, grid);
+        bfs(row, col-1, rowCount, colCount, grid);
     }
 }
