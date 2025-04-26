@@ -13,6 +13,6 @@ class Solution {
                 else if(c == ']' && popChar != '[') return false;
             }
         }
-        return stack.isEmpty() ? true : false;
+        return stack.isEmpty();
     }
 }
