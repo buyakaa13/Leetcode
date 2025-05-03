@@ -15,14 +15,24 @@
  */
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        return checkBalance(root)[0] == 1;
+        return checkBalance(root) != -1;
     }
 
-    public int[] checkBalance(TreeNode root){
-        if(root == null) return new int[]{1, 0};
-        int[] left = checkBalance(root.left);
-        int[] right = checkBalance(root.right);
-        boolean balance = left[0] == 1 && right[0] == 1 && Math.abs(left[1]-right[1]) <= 1;
-        return new int[]{balance ? 1 : 0, 1 + Math.max(left[1], right[1])};
+    public int checkBalance(TreeNode node){
+        if (node == null) return 0;  // Base case: empty tree has height 0
+
+        // Recursively get the height of the left subtree
+        int leftHeight = checkBalance(node.left);
+        if (leftHeight == -1) return -1;  // If the left subtree is unbalanced, return -1
+
+        // Recursively get the height of the right subtree
+        int rightHeight = checkBalance(node.right);
+        if (rightHeight == -1) return -1;  // If the right subtree is unbalanced, return -1
+
+        // If the height difference between left and right subtrees is more than 1, return -1
+        if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+
+        // Return the height of the current node
+        return Math.max(leftHeight, rightHeight) + 1;
     }
 }
