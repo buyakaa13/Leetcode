@@ -23,7 +23,6 @@ class Solution {
         int[] left = checkBalance(root.left);
         int[] right = checkBalance(root.right);
         boolean balance = left[0] == 1 && right[0] == 1 && Math.abs(left[1]-right[1]) <= 1;
-        int height = 1 + Math.max(left[1], right[1]);
-        return new int[]{balance ? 1 : 0, height};
+        return new int[]{balance ? 1 : 0, 1 + Math.max(left[1], right[1])};
     }
 }
