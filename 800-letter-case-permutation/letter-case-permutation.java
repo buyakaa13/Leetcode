@@ -5,12 +5,6 @@ class Solution {
         return result;
     }
 
-    //           a1b2
-    //      /           \
-    //     a1               A1
-    //    /     |       |       \
-    //a1B2     a1b2     A1b2    A1B2
-
     public void backtrack(char[] s, int start, List<String> result){
         if(s.length == start) result.add(new String(s));
         else{
