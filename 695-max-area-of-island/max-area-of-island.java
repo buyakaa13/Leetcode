@@ -1,58 +1,38 @@
 class Solution {
-    static class Pair{
-        int x, y;
-        public Pair(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    static int[] dRow = {-1, 0, 1, 0};
-    static int[] dCol = {0, 1, 0, -1};
-
     public int maxAreaOfIsland(int[][] grid) {
-        if(grid.length == 0 || grid[0].length == 0) return 0;
-        else if(grid.length == 1 && grid[0].length == 1)
-            return grid[0][0];
-        int rowCount = grid.length;
-        int colCount = grid[0].length;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
         int maxArea = 0;
-        boolean[][] visited = new boolean[rowCount][colCount];
-        for(int i=0; i<rowCount; i++){
-            for(int j=0; j<colCount; j++){
-                if(!visited[i][j] && grid[i][j] == 1) 
-                    maxArea = Math.max(bfs(i, j, visited, rowCount, colCount, grid), maxArea);
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                if(!visited[i][j] && grid[i][j] == 1)
+                    maxArea = Math.max(bfs(grid, visited, i, j), maxArea);
             }
         }
         return maxArea;
     }
 
-     static boolean isValid(int row, int col, boolean[][] visited, int rowCount, int colCount){
-        if(row < 0 || col < 0 || row >=rowCount || col >=colCount ) return false;
-        if(visited[row][col]) return false;
-        return true;
-    }
+    int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
-    public static int bfs(int row, int col, boolean[][] visited, int rowCount, int colCount, int[][] grid){
-        Queue<Pair> queue = new LinkedList<>();
-        queue.add(new Pair(row, col));
+    public int bfs(int[][] grid, boolean[][] visited, int row, int col){
+        int area = 1;
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{row, col});
         visited[row][col] = true;
 
-        int sum = 1;
         while(!queue.isEmpty()){
-            Pair current = queue.poll();
-            int x = current.x;
-            int y = current.y;
-            for(int i=0; i<4; i++){
-                int adjX = x + dRow[i];
-                int adjY = y + dCol[i];
-                if(isValid(adjX, adjY, visited, rowCount, colCount) && grid[adjX][adjY] == 1){
-                    queue.add(new Pair(adjX, adjY));
-                    visited[adjX][adjY] = true;
-                    sum += grid[adjX][adjY];
+            int[] current = queue.poll();
+            int r = current[0];
+            int c = current[1];
+            for(int i=0; i<directions.length; i++){
+                int rowNeighbor = r+directions[i][0];
+                int colNeighbor = c+directions[i][1];
+                if(rowNeighbor >= 0 && rowNeighbor < grid.length && colNeighbor >= 0 && colNeighbor < grid[0].length && !visited[rowNeighbor][colNeighbor] && grid[rowNeighbor][colNeighbor] == 1){
+                    queue.add(new int[]{rowNeighbor, colNeighbor});
+                    visited[rowNeighbor][colNeighbor] = true;
+                    area++;
                 }
             }
         }
-        return sum;
+        return area;
     }
 }
