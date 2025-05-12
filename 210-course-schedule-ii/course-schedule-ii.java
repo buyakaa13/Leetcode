@@ -2,24 +2,22 @@ class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adjList = new ArrayList<>();
         int[] inDegree = new int[numCourses];
-
         for(int i=0; i<numCourses; i++){
-            adjList.add(new ArrayList());
+            adjList.add(new ArrayList<>());
         }
 
-        for(int i=0; i<prerequisites.length; i++){
-            int course = prerequisites[i][0];
-            int prerequisite = prerequisites[i][1];
+        for(int[] prerequisite: prerequisites){
+            int course = prerequisite[0];
+            int prereq = prerequisite[1];
+            adjList.get(prereq).add(course);
             inDegree[course]++;
-            adjList.get(prerequisite).add(course);
         }
 
         Queue<Integer> queue = new LinkedList<>();
-        for(int i=0; i<inDegree.length; i++){
+        for(int i=0; i<numCourses; i++){
             if(inDegree[i] == 0)
                 queue.add(i);
         }
-
 
         int[] result = new int[numCourses];
         int index = 0;
@@ -27,15 +25,12 @@ class Solution {
             int current = queue.poll();
             result[index] = current;
             for(int nextCourse: adjList.get(current)){
-                if(--inDegree[nextCourse] == 0)
+                inDegree[nextCourse]--;
+                if(inDegree[nextCourse] == 0)
                     queue.add(nextCourse);
             }
             index++;
-        }   
-
-        if(index == numCourses){
-            return result;
-        } else return new int[]{} ;
-        
+        }
+        return index == numCourses ? result : new int[]{};
     }
 }
