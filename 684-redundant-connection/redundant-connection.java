@@ -1,46 +1,45 @@
 class Solution {
     public int[] findRedundantConnection(int[][] edges) {
-        int N = edges.length;
-
-        List<Integer>[] adjList = new ArrayList[N];
-        for (int i = 0; i < N; i++) {
-            adjList[i] = new ArrayList<>();
+        DSU dsu = new DSU(edges.length);
+        for(int i=0; i<edges.length; i++){
+            if(!dsu.union(edges[i][0]-1, edges[i][1]-1))
+                return edges[i];
         }
-
-        for (int[] edge : edges) {
-            boolean[] visited = new boolean[N];
-
-            // If DFS returns true, we will return the edge.
-            if (isConnected(edge[0] - 1, edge[1] - 1, visited, adjList)) {
-                return new int[] { edge[0], edge[1] };
-            }
-
-            adjList[edge[0] - 1].add(edge[1] - 1);
-            adjList[edge[1] - 1].add(edge[0] - 1);
-        }
-
-        return new int[] {};
+        return new int[]{};
     }
 
-     private boolean isConnected(
-        int src,
-        int target,
-        boolean[] visited,
-        List<Integer>[] adjList
-    ) {
-        visited[src] = true;
+}
 
-        if (src == target) {
-            return true;
+class DSU{
+    int[] parent;
+    int[] rank;
+    public DSU(int n){
+        parent = new int[n];
+        rank = new int[n];
+        for(int i=0; i<n; i++)
+            parent[i] = i;
+    }
+
+    public int find(int i){
+        int root = parent[i];
+        if(parent[root] != root)
+            return parent[i] = find(root);
+        return root;
+    }
+
+    public boolean union(int x, int y){
+        int xRoot = find(x);
+        int yRoot = find(y);
+        if(xRoot == yRoot) return false;
+        if(rank[xRoot] < rank[yRoot])
+            parent[yRoot] = xRoot;
+        else if(rank[xRoot] > rank[yRoot]){
+            parent[xRoot] = yRoot;
         }
-
-        boolean isFound = false;
-        for (int adj : adjList[src]) {
-            if (!visited[adj]) {
-                isFound = isFound || isConnected(adj, target, visited, adjList);
-            }
+        else{
+            parent[yRoot] = xRoot;
+            rank[xRoot] = rank[xRoot]+1;
         }
-
-        return isFound;
+        return true;
     }
 }
