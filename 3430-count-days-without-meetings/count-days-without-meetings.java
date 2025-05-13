@@ -9,7 +9,8 @@ class Solution {
                 dayOff += start-endDay-1;
             endDay = Math.max(end, endDay);
         }
-        dayOff += days - endDay;
+        if(days > endDay)
+            dayOff += days - endDay;
         return dayOff;
     }
 }
