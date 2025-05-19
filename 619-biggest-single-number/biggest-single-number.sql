@@ -1,5 +1,4 @@
 /* Write your T-SQL query statement below */
-SELECT (SELECT TOP 1 num FROM MyNumbers
+SELECT MAX(num) AS num FROM (SELECT num FROM MyNumbers
 GROUP BY num
-HAVING COUNT(0) = 1
-ORDER BY num DESC) AS num
+HAVING COUNT(0) = 1) AS num
