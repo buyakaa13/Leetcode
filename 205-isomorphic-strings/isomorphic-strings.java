@@ -14,7 +14,6 @@ class Solution {
             map2.put(ch2, map2.getOrDefault(ch2, i+1));
             str2.append(map2.get(ch2));
         }
-        System.out.println("str1: " + str1.toString() + " str2: " + str2.toString());
         return str1.toString().equals(str2.toString());
     }
 }
