@@ -24,7 +24,6 @@ class Solution {
             newList = newList.next;
         }
         newList.next = list1 != null ? list1 : list2; 
-        System.out.println("head: " + head.val);
         return head.next;
     }
 }
