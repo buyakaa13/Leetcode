@@ -13,9 +13,7 @@ class Solution {
         if(head == null || head.next == null) return true;
         ListNode slower = head, faster = head;
         Stack<Integer> stack = new Stack<>();
-        // stack.push(head.val);
         while(faster != null && faster.next != null){
-            System.out.println("slower 1: " + slower.val);
             stack.push(slower.val);
             slower = slower.next;
             faster = faster.next.next;
