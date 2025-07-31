@@ -20,11 +20,10 @@ class Solution {
         return list;
     }
 
-    public List<Integer> inOrder(TreeNode node, List<Integer> list){
-        if(node == null) return list;
+    public void inOrder(TreeNode node, List<Integer> list){
+        if(node == null) return;
         inOrder(node.left, list);
         list.add(node.val);
         inOrder(node.right, list);
-        return list;
     }
 }
