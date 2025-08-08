@@ -16,23 +16,8 @@
 class Solution {
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if(root == null) return false;
-        Stack<TreeNode> nodeStack = new Stack();
-        Stack<Integer> sumStack = new Stack();
-        nodeStack.push(root);
-        sumStack.push(targetSum - root.val);
-        while(!nodeStack.isEmpty()){
-            TreeNode currentNode = nodeStack.pop();
-            int currentSum = sumStack.pop();
-            if(currentSum == 0 && currentNode.left == null && currentNode.right == null) return true;
-            if(currentNode.left != null){
-                nodeStack.push(currentNode.left);
-                sumStack.push(currentSum - currentNode.left.val);
-            }
-            if(currentNode.right != null){
-                nodeStack.push(currentNode.right);
-                sumStack.push(currentSum - currentNode.right.val);
-            }
-        }
-        return false;
+        targetSum -= root.val;
+        if(root.left == null && root.right == null && targetSum == 0) return true;
+        return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
     }
 }
