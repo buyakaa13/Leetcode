@@ -15,13 +15,22 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if(root == null) return true;
-        return isMirror(root.left, root.right);
-    }
+        if(root == null) return false;
+        Stack<TreeNode> stack1 = new Stack();
+        Stack<TreeNode> stack2 = new Stack();
+        stack1.push(root.left);
+        stack2.push(root.right);
+        while(!stack1.isEmpty() && !stack2.isEmpty()){
+            TreeNode current1 = stack1.pop();
+            TreeNode current2 = stack2.pop();
+            if(current1 == null && current2 == null) continue;
+            if(current1 == null || current2 == null || current1.val != current2.val) return false;
+            stack1.push(current1.left);
+            stack1.push(current1.right);
 
-    public boolean isMirror(TreeNode left, TreeNode right){
-        if(left == null && right == null) return true;
-        if(left == null || right == null) return false;
-        return left.val == right.val && isMirror(left.left, right.right) && isMirror(left.right, right.left);
+            stack2.push(current2.right);
+            stack2.push(current2.left);
+        }
+        return stack1.isEmpty() && stack2.isEmpty();
     }
 }
