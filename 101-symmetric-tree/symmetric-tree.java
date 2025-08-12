@@ -16,19 +16,12 @@
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root == null) return false;
-        Queue<TreeNode> queue = new LinkedList();
-        queue.add(root.left);
-        queue.add(root.right);
-        while(!queue.isEmpty()){
-            TreeNode current1 = queue.poll();
-            TreeNode current2 = queue.poll();
-            if(current1 == null && current2 == null) continue;
-            if(current1 == null || current2 == null || current1.val != current2.val) return false;
-            queue.add(current1.left);
-            queue.add(current2.right);
-            queue.add(current1.right);
-            queue.add(current2.left);
-        }
-        return true;
+        return isMirror(root.left, root.right);
+    }
+
+    public boolean isMirror(TreeNode node1, TreeNode node2){
+        if(node1 == null && node2 == null) return true;
+        if(node1 == null || node2 == null || node1.val != node2.val) return false;
+        return isMirror(node1.left, node2.right) && isMirror(node2.left, node1.right);
     }
 }
