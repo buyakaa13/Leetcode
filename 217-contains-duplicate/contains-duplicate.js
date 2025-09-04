@@ -3,17 +3,19 @@
  * @return {boolean}
  */
 var containsDuplicate = function(nums) {
-    const map = new Map();
+    const map = new Set();
 
     // map.set(k, v)
-    // map.get(k) => v | undefined
+    // map.get(k) => v | undefined 
+
+    // set.add(v)
+    // set.has(v) => true || false
 
     for(const num of nums){
-        const val = map.get(num);
-        if(val !== undefined)
+        if(map.has(num))
             return true;
         else
-            map.set(num, num);
+            map.add(num);
     }
     return false;
 };
