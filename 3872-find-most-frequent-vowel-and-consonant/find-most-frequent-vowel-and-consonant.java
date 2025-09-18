@@ -1,14 +1,14 @@
 class Solution {
     public int maxFreqSum(String s) {
-        HashMap<Character, Integer> map = new HashMap<>();
-        for(char c: s.toCharArray())
-            map.put(c, map.getOrDefault(c, 0)+1);
+        int[] freq = new int[26];
         int vowel = 0, cons = 0;
-        for(Map.Entry<Character, Integer> m: map.entrySet()){
-            if(m.getKey() == 'a' || m.getKey() == 'e' || m.getKey() == 'i' || m.getKey() == 'o' || m.getKey() == 'u')
-                vowel = Math.max(vowel, m.getValue());
+        for(int i=0; i<s.length(); i++){
+            int num = s.charAt(i) - 'a';
+            freq[num]++;
+            if(s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u')
+                vowel = Math.max(vowel, freq[num]);
             else
-                cons = Math.max(cons, m.getValue());
+                cons = Math.max(cons, freq[num]);
         }
         return vowel + cons;
     }
