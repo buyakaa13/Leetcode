@@ -1,13 +1,19 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (a, b)->Integer.compare(a[0], b[0]));
-        LinkedList<int[]> result = new LinkedList<>();
-        for(int[] interval: intervals){
-            if(result.isEmpty() || result.getLast()[1] < interval[0])
-                result.add(interval);
-            else
-                result.getLast()[1] = Math.max(result.getLast()[1], interval[1]);
+        Arrays.sort(intervals, (a, b)-> Integer.compare(a[0],b[0]));
+        
+        List<int[]> result = new ArrayList();
+        int[] prev = intervals[0];
+        for(int i=1; i<intervals.length; i++){
+            int[] interval = intervals[i];
+            if(interval[0] <= prev[1])
+                prev[1] = Math.max(prev[1], interval[1]);
+            else{
+                result.add(prev);
+                prev = interval;
+            }
         }
+        result.add(prev);
         return result.toArray(new int[result.size()][]);
     }
 }
