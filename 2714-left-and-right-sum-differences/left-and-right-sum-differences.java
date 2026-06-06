@@ -11,10 +11,8 @@ class Solution {
 
 
         int[] result = new int[len];
-        for(int i=0; i<len; i++){
-            System.out.println("i: " + leftArray[i] + " - " + rightArray[i]);
+        for(int i=0; i<len; i++)
             result[i] = Math.abs(leftArray[i] - rightArray[i]);
-        }
 
         return result;
 
