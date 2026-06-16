@@ -3,14 +3,11 @@ class Solution {
         List<Integer> result = new ArrayList();
         if(nums.length == 0)
             return result;
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int num: nums){
-            map.put(num, map.getOrDefault(num, 0)+1);
-        }
-
-        for(Map.Entry<Integer, Integer> entry: map.entrySet()){
-            if(entry.getValue() > 1)
-                result.add(entry.getKey());
+        for(int i=0; i<nums.length; i++){
+            int x = Math.abs(nums[i]);
+            if(nums[x-1] < 0)
+                result.add(x);
+            nums[x-1] *= -1;
         }
 
         return result;
